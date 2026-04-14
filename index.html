@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="description"
+          content="StableSketcher: Enhancing Diffusion Model for Pixel-based Sketch Generation via Visual Question Answering Feedback">
+    <meta name="viewport" content="width=device-width, initial-scale=0.1">
+    <title>StableSketcher: Enhancing Diffusion Model for Pixel-based Sketch Generation via Visual Question Answering Feedback</title>
+  
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+    <link rel="icon" href="static/figures/icon.png">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="./static/css/bulma.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-tooltip.min.css">
+    <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="./static/css/index.css">
+  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="./static/js/fontawesome.all.min.js"></script>
+    <script src="./static/js/bulma-carousel.min.js"></script>
+    <script src="./static/js/bulma-slider.min.js"></script>
+    <script src="./static/js/index.js"></script>
+</head>
+
+
+<body>
+
+
+<section class="publication-header">
+    <div class="hero-body">
+        <div class="container is-max-widescreen">
+            <div class="column has-text-centered">
+                <h1 class="title is-1 publication-title">StableSketcher: Enhancing Diffusion Model for Pixel-based Sketch Generation via Visual Question Answering Feedback</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="publication-author-block">
+    <div class="hero-body">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered">
+                <div class="column has-text-centered">
+                    <div class="is-size-3 publication-authors">
+                    </div>
+
+                   <div class="is-size-5 publication-authors">
+                        <span class="author-block"><a  href="https://zihos.github.io/" target="_blank">Jiho Park</a><sup>1</sup>,</span>
+                        <span class="author-block"><a  target="_blank">Sieun Choi</a><sup>1</sup>,</span>
+                        <span class="author-block"><a  target="_blank">Jaeyoon Seo</a><sup>1</sup></span>
+                        <span class="author-block"><a href="https://sites.google.com/view/jihiekim" target="_blank">Jihie Kim</a><sup>1,*</sup></span>                                   
+                    </div>
+
+                    <div class="is-size-6 publication-authors">
+                        <span class="author-block">1 - Dongguk University</span>
+                    </div>
+                    <div class="is-size-6 publication-authors">
+                        <span class="author-block">* Corresponding author</span>
+                    </div>
+                                                                         
+                    <div class="column has-text-centered">
+                        <div class="publication-links">
+              
+                        <span class="link-block">
+                            <a href="https://arxiv.org/pdf/2510.20093" target="_blank"
+                            class="external-link button is-normal is-rounded">
+                            <span class="icon">
+                                <i class="ai ai-arxiv"></i>
+                            </span>
+                            <span>arXiv</span>
+                            </a>
+                        </span>
+
+                        <span class="link-block">
+                            <a href="https://arxiv.org/pdf/2510.20093" target="_blank"
+                            class="external-link button is-normal is-rounded">
+                            <span class="icon">
+                                <i class="fas fa-file-pdf"></i>
+                            </span>
+                            <span>Paper</span>
+                            </a>
+                        </span>
+
+                        <span class="link-block">
+                            <a href="https://huggingface.co/datasets/ziiio/SketchDUO"
+                            class="external-link button is-normal is-rounded">
+                            <span class="icon">
+                                <img src="https://huggingface.co/front/assets/huggingface_logo.svg" 
+                                    alt="HuggingFace" 
+                                    style="height: 18px; vertical-align: middle;">
+                                </span>
+                            <span>Dataset</span>
+                            </a>
+                        </span>
+
+                        <span class="link-block">
+                            <a class="external-link button is-normal is-rounded" href="https://github.com/swiftsketch/SwiftSketch">
+                            <span class="icon">
+                                <i class="fab fa-github"></i>
+                            </span>
+                            <span>Code</span>
+                            </a>
+                        </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+	<section class="hero teaser">
+	    <div class="container place-items-center">
+		      <div class="hero-body has-text-centered">
+		        <img src="static/figures/teaser.png" alt="Banner Image" width="50%" class="mt-5">
+		        <div class="content has-text-justified teaser-caption">
+		          <p>
+		            StableSketcher improves text-to-sketch generation by reinforcing prompt fidelity through VQA-based reward feedback. Built on Stable Diffusion with a fine-tuned VAE, it is trained with SketchDUO, a multimodal sketch dataset of images, captions, and QA sets.
+		          </p>
+		        </div>
+		      </div>
+	    </div>
+	  </section>
+
+
+	    <section class="section hero is-light qualitative-results-intro">
+	      <div class="container is-max-desktop">
+	        <div class="columns is-centered has-text-centered">
+	          <div class="column is-four-fifths">
+	            <h2 class="title is-3">Abstract</h2>
+	            <div class="content has-text-justified">
+	              <p>
+	                Although recent advancements in diffusion models have significantly enriched the quality of generated images, challenges remain in synthesizing pixel-based human-drawn sketches, a representative example of abstract expression. To combat these challenges, we propose <em>StableSketcher</em>, a novel framework that empowers diffusion models to generate hand-drawn sketches with high prompt fidelity.
+	              </p>
+	              <p>
+	                Within this framework, we fine-tune the variational autoencoder to optimize latent decoding, enabling it to better capture the characteristics of sketches. In parallel, we integrate a new reward function for reinforcement learning based on visual question answering, which improves text-image alignment and semantic consistency.
+	              </p>
+	              <p>
+	                Extensive experiments demonstrate that StableSketcher generates sketches with improved stylistic fidelity, achieving better alignment with prompts compared to the Stable Diffusion baseline. Additionally, we introduce <em>SketchDUO</em>, to the best of our knowledge, the first dataset comprising instance-level sketches paired with captions and question-answer pairs, thereby addressing the limitations of existing datasets that rely on image-label pairs.
+	              </p>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	    </section>
+
+
+	    <section id="sketchduo-section" class="section">
+	      <div class="container is-max-desktop">
+	        <div class="columns is-centered has-text-centered">
+	          <div class="column is-four-fifths">
+	            <h2 class="title is-3">SketchDUO</h2>
+	            <div class="content has-text-justified">
+	              <p>
+	                <em>SketchDUO</em> is a multimodal sketch dataset introduced to support prompt-faithful text-to-sketch generation. Unlike prior sketch datasets that mainly provide image-label pairs, SketchDUO pairs instance-level sketch images with captions and question-answer sets.
+	              </p>
+	              <p>
+	                The dataset contains positive and negative splits, and also includes augmented samples without caption annotations. These multimodal annotations make SketchDUO useful not only for training text-to-sketch models, but also for evaluating semantic consistency and supporting VQA-based reward learning.
+	              </p>
+	              <div class="has-text-centered">
+	                <img src="static/figures/data_construction.png"
+	                     alt="SketchDUO construction pipeline"
+	                     width="100%"
+	                     class="mt-4 mb-4">
+	              </div>
+	              <p>
+	                SketchDUO is constructed through positive and negative sketch collection, augmentation, and multimodal annotation with captions and QA sets, resulting in a dataset that supports both prompt-faithful generation and VQA-based reward learning.
+	              </p>
+	              <ul class="regular-list">
+	                <li><strong>35,851</strong> total sketch images</li>
+	                <li><strong>24,000</strong> positive samples and <strong>11,851</strong> negative samples</li>
+	                <li><strong>4,693</strong> images with captions</li>
+	                <li><strong>4,692</strong> images with QA pairs</li>
+	                <li>Caption-free samples are included as augmented image-only data</li>
+	              </ul>
+	            </div>
+	            <div class="publication-links">
+	              <span class="link-block">
+	                <a href="https://huggingface.co/datasets/ziiio/SketchDUO"
+	                   class="external-link button is-normal is-rounded">
+	                  <img src="https://huggingface.co/front/assets/huggingface_logo.svg"
+	                       alt="HuggingFace"
+	                       style="height: 18px; width: auto; display: inline-block; vertical-align: middle; margin-right: 0.4rem;">
+	                  <span>Explore SketchDUO</span>
+	                </a>
+	              </span>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	    </section>
+    
+           
+  
+	    <section id="how-does-it-work-section" class="section hero is-light">
+	      <div class="container is-max-desktop">
+	        <div class="columns is-centered has-text-centered">
+	          <div class="column is-four-fifths">
+	            <h2 class="title is-3">StableSketcher</h2>
+	            <div class="content has-text-justified">
+	              <p>
+	                The core idea of <em>StableSketcher</em> is to improve prompt-faithful sketch generation by combining sketch-specialized latent decoding with VQA-based reward feedback that explicitly measures whether generated sketches preserve the semantics of the input prompt. To do this, we adopt a three-stage training framework tailored to pixel-based hand-drawn sketches.
+	              </p>
+	              <p>
+	                First, we fine-tune the variational autoencoder on sketch images so that latent decoding better preserves the sparse structure and stylistic characteristics of sketches. Next, we fine-tune Stable Diffusion on sketch-caption pairs, using the adapted VAE to generate sketch images that better align with textual prompts.
+	              </p>
+	              <p>
+	                In the final DDPO stage, each generated sketch is evaluated with QA pairs derived from the corresponding sketch-caption data. A fine-tuned mPLUG-large model performs visual question answering on the generated result, and its response quality is converted into a reward that reflects both instance-specific attributes and sketch-level properties. This VQA-based feedback is then used to update the diffusion model, encouraging stronger text-image alignment and higher semantic consistency.
+	              </p>
+	              <div class="has-text-centered">
+	                <img src="static/figures/stablesketcher_framework.png"
+	                     alt="StableSketcher framework"
+	                     width="100%"
+	                     class="mt-4 mb-4">
+	              </div>
+	              <p>
+	                As illustrated above, StableSketcher jointly improves sketch reconstruction, prompt fidelity, and semantic faithfulness through VAE fine-tuning, sketch-aware diffusion training, and reinforcement learning with VQA-based reward optimization.
+	              </p>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	    </section>
+
+
+	    <section id="quantitative-results" class="section">
+	      <div class="container is-max-desktop">
+	        <div class="columns is-centered has-text-centered">
+	          <div class="column is-four-fifths">
+	            <h2 class="title is-3">Quantitative Results</h2>
+	            <div class="content has-text-justified">
+	              <p>
+	                We evaluate StableSketcher with FID, LPIPS, CLIPScore, BERTScore, and TIFAScore across different Stable Diffusion backbones and fine-tuning configurations. Overall, fine-tuning substantially improves prompt-faithful sketch generation, and the strongest gains are obtained when U-Net fine-tuning is combined with VAE fine-tuning.
+	              </p>
+	            </div>
+	            <div class="table-container quantitative-table-wrapper">
+	              <table class="table is-fullwidth is-striped is-hoverable quantitative-table">
+	                <thead>
+	                  <tr>
+	                    <th>Method</th>
+	                    <th>FID ↓</th>
+	                    <th>LPIPS ↓</th>
+	                    <th>CLIPScore ↑</th>
+	                    <th>BERTScore ↑</th>
+	                    <th>TIFAScore ↑</th>
+	                  </tr>
+	                </thead>
+	                <tbody>
+	                  <tr>
+	                    <td>Stable Diffusion v1.5</td>
+	                    <td>207.59 <span class="metric-std">±22.29</span></td>
+	                    <td>0.69 <span class="metric-std">±0.09</span></td>
+	                    <td>34.00 <span class="metric-std">±2.59</span></td>
+	                    <td><strong>0.89</strong> <span class="metric-std">±0.03</span></td>
+	                    <td>0.59 <span class="metric-std">±0.15</span></td>
+	                  </tr>
+	                  <tr>
+	                    <td>&nbsp;&nbsp;+ U-Net fine-tuning</td>
+	                    <td>161.94 <span class="metric-std">±20.33</span></td>
+	                    <td>0.40 <span class="metric-std">±0.09</span></td>
+	                    <td><strong>36.05</strong> <span class="metric-std">±2.59</span></td>
+	                    <td><strong>0.89</strong> <span class="metric-std">±0.03</span></td>
+	                    <td><strong>0.68</strong> <span class="metric-std">±0.13</span></td>
+	                  </tr>
+	                  <tr>
+	                    <td>&nbsp;&nbsp;&nbsp;&nbsp;+ VAE fine-tuning</td>
+	                    <td><strong>143.68</strong> <span class="metric-std">±16.58</span></td>
+	                    <td><strong>0.37</strong> <span class="metric-std">±0.08</span></td>
+	                    <td>35.48 <span class="metric-std">±2.50</span></td>
+	                    <td>0.88 <span class="metric-std">±0.03</span></td>
+	                    <td><strong>0.68</strong> <span class="metric-std">±0.14</span></td>
+	                  </tr>
+	                  <tr class="section-divider">
+	                    <td>Stable Diffusion v2.1</td>
+	                    <td>230.78 <span class="metric-std">±22.65</span></td>
+	                    <td>0.72 <span class="metric-std">±0.07</span></td>
+	                    <td>31.13 <span class="metric-std">±3.42</span></td>
+	                    <td>0.88 <span class="metric-std">±0.03</span></td>
+	                    <td>0.53 <span class="metric-std">±0.15</span></td>
+	                  </tr>
+	                  <tr>
+	                    <td>&nbsp;&nbsp;+ U-Net fine-tuning</td>
+	                    <td>144.46 <span class="metric-std">±25.68</span></td>
+	                    <td>0.41 <span class="metric-std">±0.07</span></td>
+	                    <td>34.79 <span class="metric-std">±2.71</span></td>
+	                    <td>0.88 <span class="metric-std">±0.03</span></td>
+	                    <td>0.67 <span class="metric-std">±0.13</span></td>
+	                  </tr>
+	                  <tr>
+	                    <td>&nbsp;&nbsp;&nbsp;&nbsp;+ VAE fine-tuning</td>
+	                    <td>172.35 <span class="metric-std">±14.48</span></td>
+	                    <td>0.50 <span class="metric-std">±0.08</span></td>
+	                    <td>34.11 <span class="metric-std">±2.84</span></td>
+	                    <td>0.88 <span class="metric-std">±0.03</span></td>
+	                    <td>0.65 <span class="metric-std">±0.13</span></td>
+	                  </tr>
+	                </tbody>
+	              </table>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	    </section>
+
+	    <section id="qualitative-results" class="section hero is-light">
+	      <div class="hero-body">
+	        <div class="container is-max-desktop">
+	          <div class="columns is-centered has-text-centered">
+	            <div class="column is-four-fifths">
+	              <h2 class="title is-3">Qualitative Results</h2>
+	              <div class="content has-text-justified">
+	                <p>
+	                  We compare StableSketcher qualitatively across diverse prompts and object categories. The examples below show that our method produces sketches with clearer structure, stronger stylistic consistency, and better preservation of prompt-specific attributes.
+	                </p>
+	              </div>
+	          <div id="results-carousel" class="carousel results-carousel">
+	            <div class="item item-total-1">
+	              <img src="./static/figures/qual_results/total_1.png" alt="Qualitative result 1">
+	            </div>
+	            <div class="item item-total-2">
+	              <img src="./static/figures/qual_results/total_2.png" alt="Qualitative result 2">
+	            </div>
+	            <div class="item item-total-3">
+	              <img src="./static/figures/qual_results/total_3.png" alt="Qualitative result 3">
+	            </div>
+	            <div class="item item-total-4">
+	              <img src="./static/figures/qual_results/total_4.png" alt="Qualitative result 4">
+	            </div>
+	            <div class="item item-total-5">
+	              <img src="./static/figures/qual_results/total_5.png" alt="Qualitative result 5">
+	            </div>
+	            <div class="item item-total-6">
+	              <img src="./static/figures/qual_results/total_6.png" alt="Qualitative result 6">
+	            </div>
+	          </div>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	    </section>
+
+
+	    <section class="section">
+	      <div class="container is-max-desktop">
+	        <div class="columns is-centered has-text-centered">
+	          <div class="column is-four-fifths">
+	            <h2 class="title is-3">ACKNOWLEDGEMENTS</h2>
+	            <div class="content has-text-justified">
+	              <p>
+	                This research was supported by the MSIT (Ministry of Science and ICT), Korea, under the ITRC (Information Technology Research Center) support program (IITP-2026-RS-2020-II201789), and the Artificial Intelligence Convergence Innovation Human Resources Development (IITP-2026-RS-2023-00254592) supervised by the IITP (Institute for Information &amp; Communications Technology Planning &amp; Evaluation).
+	              </p>
+	              <p>
+	                This study involved human participants. All procedures were approved by the Institutional Review Board (IRB) of Dongguk University (Approval No. DUIRB-2025-05-08) and were conducted in accordance with institutional ethical guidelines.
+	              </p>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	    </section>
+
+	    <section class="section" id="BibTeX">
+	        <div class="container is-max-desktop content">
+        <h2 class="title">BibTeX</h2>
+        <pre><code>@article{park2025stablesketcher,
+        title={StableSketcher: Enhancing Diffusion Model for Pixel-based Sketch Generation via Visual Question Answering Feedback},
+        author={Park, Jiho and Choi, Sieun and Seo, Jaeyoon and Kim, Jihie},
+        journal={arXiv preprint arXiv:2510.20093},
+        year={2025}
+        }</code></pre>
+        </div>
+    </section>
+    
+
+    <footer class="footer">
+        <div class="columns is-centered">
+            <div class="column is-8">
+                <div class="content">
+                    <p>
+                        This website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+                        Commons Attribution-ShareAlike 4.0 International License</a>.
+                    </p>
+                    <p>
+                        Website source code based on the <a href="https://nerfies.github.io/"> Nerfies</a> project page.
+                        If you want to reuse their <a href="https://github.com/nerfies/nerfies.github.io">source code</a>, please credit them appropriately.
+                    </p>
+                </div>
+            </div>
+        </div>
+        </div>
+    </footer>
+
+</body>
+</html>
+

@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="description"
+          content="SwiftSketch: A Diffusion Model for Image-to-Vector Sketch Generation">
+    <meta name="viewport" content="width=device-width, initial-scale=0.1">
+    <title>SwiftSketch: A Diffusion Model for Image-to-Vector Sketch Generation</title>
+  
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+    <link rel="icon" href="static/figures/icon.png">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="./static/css/bulma.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-tooltip.min.css">
+    <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="./static/css/index.css">
+  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="./static/js/fontawesome.all.min.js"></script>
+    <script src="./static/js/bulma-carousel.min.js"></script>
+    <script src="./static/js/bulma-slider.min.js"></script>
+    <script src="./static/js/index.js"></script>
+</head>
+
+
+<body>
+
+
+<section class="publication-header">
+    <div class="hero-body">
+        <div class="container is-max-widescreen">
+            <div class="column has-text-centered">
+                <h1 class="title is-1 publication-title">SwiftSketch: A Diffusion Model for Image-to-Vector Sketch Generation</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="publication-author-block">
+    <div class="hero-body">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered">
+                <div class="column has-text-centered">
+                    <div class="is-size-3 publication-authors">
+                    </div>
+
+                   <div class="is-size-5 publication-authors">
+                        <span class="author-block"><a  target="_blank">Ellie Arar</a><sup>1</sup>,</span>
+                        <span class="author-block"><a  target="_blank">Yarden Frenkel</a><sup>1</sup>,</span>
+                        <span class="author-block"><a href="https://danielcohenor.com/" target="_blank">Daniel Cohen-Or</a><sup>1</sup></span>
+                        <span class="author-block"><a href="https://faculty.runi.ac.il/arik/site/index.asp" target="_blank">Ariel Shamir</a><sup>3</sup>,</span>           
+                        <span class="author-block"><a href="https://yael-vinker.github.io/website/" target="_blank">Yael Vinker</a><sup>1,2</sup></span>           
+                        
+                    </div>
+
+                    <div class="is-size-6 publication-authors">
+                        <span class="author-block">1 - Tel Aviv University</span>
+                    </div>
+                    <div class="is-size-6 publication-authors">
+                        <span class="author-block">2 - MIT CSAIL</span>
+                    </div>
+                    <div class="is-size-6 publication-authors">
+                        <span class="author-block">3 - Reichman University</span>
+                    </div>
+
+                    <div class="has-text-centered">
+                        <div class="publication-venue mt-2">
+                            SIGGRAPH 2025
+                        </div>
+                    </div>
+                                                                         
+                    <div class="column has-text-centered">
+                        <div class="publication-links">
+              
+                        <span class="link-block">
+                            <a href="https://arxiv.org/abs/2502.08642" target="_blank"
+                            class="external-link button is-normal is-rounded">
+                            <span class="icon">
+                                <i class="ai ai-arxiv"></i>
+                            </span>
+                            <span>arXiv</span>
+                            </a>
+                        </span>
+
+                        <span class="link-block">
+                            <a href="https://dl.acm.org/doi/10.1145/3721238.3730612" target="_blank"
+                            class="external-link button is-normal is-rounded">
+                            <span class="icon">
+                                <i class="fas fa-file-pdf"></i>
+                            </span>
+                            <span>ACM Paper</span>
+                            </a>
+                        </span>
+
+                        <span class="link-block">
+                                <a class="external-link button is-normal is-rounded" href="https://github.com/swiftsketch/SwiftSketch">
+                                <span class="icon">
+                                    <i class="fab fa-github"></i>
+                                </span>
+                                <span>Code</span>
+                            </a>
+                        </span>
+
+                        </div>
+                    </div>
+                
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="hero teaser">
+    <div class="container place-items-center">
+      <div class="hero-body has-text-centered">
+        <img src="static/figures/teaser_.svg" alt="Banner Image" width="95%" class="mt-5">
+      </div>
+    </div>
+  </section>
+
+
+    <section class="section hero is-light">
+        <div class="container is-max-desktop">
+            <!-- Abstract. -->
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-four-fifths">
+                    <h2 class="title is-3">What is SwiftSketch?</h2>
+                    <div class="content has-text-justified">
+                        <p>
+                            SwiftSketch is a diffusion-based model for object sketching that offers several key benefits:
+                        </p>
+                        <ul class="emoji-list column is-centered has-text-justified">
+                            <li>
+                                It generates <strong style="color: #bb79f2;">vector</strong> sketches, which are resolution-independent, highly editable, and effectively capture the sequential and abstract nature of sketches.
+
+                            </li>
+                            <br>                                                    
+                            <li> It operates <strong style="color: #bb79f2;">efficiently</strong>, generating a single sketch in under a second.
+
+                                
+                            </li>
+                            
+                            <br>
+                            <li>
+                                It <strong style="color: #bb79f2;">generalizes</strong> effectively across a diverse range of object classes.
+                            </li>
+                        </ul>
+                        
+                      
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="section">
+        <div class="container">
+            <h2 class="title has-text-centered">
+                 Sketches Generated with SwiftSketch
+            </h2>
+            <div id="category-carousel" class="carousel">
+                <!-- Dynamic content will be injected here -->
+            </div>
+        </div>
+    </section>
+    
+           
+  
+    <section id="how-does-it-work-section" class="section hero is-light">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-four-fifths">
+                    <h2 class="title is-3">How Does it Work?</h2>
+                    <div class="content has-text-justified">
+                        <ul class="regular-list column is-centered has-text-justified">
+                            <li>
+                                SwiftSketch generates vector sketches by gradually denoising a Gaussian in stroke coordinate space, conditioned on an input image: 
+                            </li>
+                            <div class="container">
+                                <div style="height: 40px;"></div> 
+                                <!-- Empty grid container -->
+                                <div id="denoisingGrid"></div>
+                              </div>
+                            <!-- End of Single Line Grid -->
+                            <br>
+                            <li>
+                                To train SwiftSketch, we introduce the <strong> <a href="#controlsketch-data" style="color: #79bcf2;">ControlSketch Dataset</a></strong>, a synthetic, high-quality, paired image-vector sketch dataset. 
+                               
+                            </li>
+                            <br>
+                            <li>
+                                The sketches in the ControlSketch Dataset are generated using <strong><a  href="#controlsketch-section" style="color: #79bcf2;">ControlSketch</a></strong>, a new optimization-based technique for producing high-quality vector sketches from images, with high fiidelity.
+                            </li>
+                        </ul> 
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+        <section id="controlsketch-data" class="section">
+            <div class="container is-max-desktop">
+                <div class="columns is-centered has-text-centered">
+                    <div class="column is-four-fifths">
+                        <h2 class="title is-3">The ControlSketch Dataset</h2>
+                        <div class="column is-centered has-text-justified">
+                            <p> 
+                                Human-drawn sketch datasets present a tradeoff: large-scale collections like <a href="https://quickdraw.withgoogle.com/data" target="_blank">QuickDraw</a> (50M sketches) lack proffesional appearance,   
+                                <img class="dataset-image-medium" src="static/figures/quickdraw.jpg" alt="amateur" />  
+                                <br> while professionally curated datasets are often small and domain-specific, such as the dataset by <a href="https://studios.disneyresearch.com/wp-content/uploads/2019/03/Style-and-Abstraction-in-Portrait-Sketching.pdf" target="_blank">Berger et al.</a>, which focuses on portraits, and <a href="https://repo-sam.inria.fr/d3/OpenSketch/" target="_blank">OpenSketch</a>, which contains product design sketches:
+                                <img class="dataset-image-small" src="static/figures/berger.jpg" alt="pro" />
+                                <img class="dataset-image-small" src="static/figures/opensketch.jpg" alt="pro" />    
+
+                                
+                                <br>To address this, we introduce a <strong >synthetic</strong> image-sketch dataset. We use SDXL to generate the images, and the corresponding vector sketches are produced by our optimization-based technique,  <strong><a  href="#controlsketch-section" style="color: #79bcf2;">ControlSketch</a></strong>.
+                                Our synthetic sketches are provided in vector format, maintaining high fidelity to the input image while exhibiting a professional, yet natural and abstract style:
+                            </p>
+                            
+
+                        
+                        </div>
+        
+                    </div>
+                </div>
+        <!-- </div>
+    </section> -->
+
+
+  
+       
+    
+    <!-- <section class="section">
+        <div class="container is-max-desktop"> -->
+            <!-- <h2 class="title is-3 has-text-centered">Dataset Gallery</h2> -->
+            
+            <div class="field has-addons has-text-centered">
+                <div class="control">
+                    <div class="select is-medium">
+                        <select id="categoryInput" onchange="createGrid()">
+                            <!-- <option value="" disabled >Select a category</option> -->
+                            <option value="squirrel">Squirrel</option>
+                            <option value="dog">Dog</option>
+                            <option value="bear">Bear</option>
+                            <option value="woman">Woman</option>
+                            <option value="lion"selected>Lion</option>
+                            <option value="kangaroo">Kangaroo</option>
+                            <option value="lobster">Lobster</option>
+                            <option value="pig">Pig</option>
+                            <option value="cup">Cup</option>
+                            <option value="robot">Robot</option>
+                            <option value="motorcycle">Motorcycle</option>
+                            <option value="sculpture">Sculpture</option>
+                            <option value="helicopter">Helicopter</option>
+                            <option value="bed">Bed</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div id="galleryGrid" class="columns is-multiline"></div>
+
+            
+                        
+            <div class="column is-centered has-text-justified">
+            <p>
+                The ConrtolSketch dataset comprises 35,000 pairs of images and their corresponding sketches in SVG format, spanning 100 object categories.
+                <a href="https://drive.google.com/drive/folders/1L5kubR416QoTD_UAqH2FtSgNL4leUcys"       
+                target="_blank" rel="noopener noreferrer"><strong>Download the data</strong></a></h2> 
+
+            </p> 
+        </div>
+</div>
+</section>
+    <section id="swiftsketch-section" class="section hero is-light">
+        <!-- <div class="container is-max-desktop"> -->
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-four-fifths">
+                    <h2 class="title is-3">SwiftSketch - Training Details </h2>          
+                    <div class="container is-max-desktop">  
+                    <div class="column is-centered has-text-justified ">
+                        <p>
+                            We utilize 15 categories of the ControlSketch dataset to train a generative model <i>M<sub>θ</sub></i> that learns to efficiently produce a vector sketch from an input image. 
+                            The model generates a new sketch by progressively denoising randomly sampled Gaussian noise
+                            <i>S<sup>T</sup> ∼ 𝒩(0, I)</i> conditioned on the image embedding.  
+                        </p>
+                    </div>
+                </div>     
+                <!-- style="background-color: white;" -->
+                    <div class="column is-centered has-text-centered">
+                        <img src="static/figures/swiftsketch_pipe_new.png" alt="diffusion_pipeline" width="75%" />
+                    </div>
+                    <div class="container is-max-desktop"> 
+                    <div class="column is-centered has-text-justified">
+                        <p>
+                            The training of the model follows the standard conditional diffusion framework, with task-specific modifications to address 
+                            the characteristics of vector data and the image-to-sketch task. In our case, the model learns to denoise the set of (<i>x</i>, <i>y</i>) coordinates 
+                            that define the strokes in the sketch.
+                            At each training iteration, an image <i>I</i> is passed through a frozen CLIP image encoder, followed by a lightweight CNN, 
+                            to produce the image embedding <i>I<sub>e</sub></i>. The corresponding vector sketch <i>S<sup>0</sup></i> is noised 
+                            based on the sampled timestep <i>t</i> and noise <i>ε</i>, forming <i>S<sup>t</sup></i> 
+                            (with <i>𝓡(S<sup>t</sup>)</i> illustrating the rasterized noised sketch, which is not used in training). 
+                            The network <i>M<sub>θ</sub></i>, a transformer decoder, receives the noised signal <i>S<sup>t</sup></i> 
+                            and is tasked with predicting the clean signal <i>S<sup>0</sup></i>, conditioned on the image embedding <i>I<sub>e</sub></i> 
+                            and the timestep <i>t</i> (fed through the cross-attention mechanism). 
+                            The network is trained with two loss functions: one based on the distance between the control points 
+                            and the other on the similarity of the rasterized sketches.
+                        </p>    
+                    </div>
+                </div>
+                </div>
+            </div>
+        <!-- </div> -->
+    </section>
+
+
+
+    <section class="hero is-small">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-four-fifths">
+                    <br>
+                    <h2 class="title is-3">SwiftSketch Stroke Order Visualization</h2>
+                    <div class="content has-text-justified">
+                        <div class="columns is-multiline is-centered">
+                            <!-- Row for Dog Images -->
+                            <div class="column is-full">
+                                <div class="columns is-centered is-vcentered">
+                                    <div class="column is-narrow grid-item">
+                                        <p class="grid-title">Input</p>
+                                        <img class="grid-image" src="static/figures/dog_910/dog_910_input.png" alt="Dog Input">
+                                    </div>
+                                    <div class="column is-narrow grid-item">
+                                        <p class="grid-title">12s</p>
+                                        <img class="grid-image" src="static/figures/dog_910/dog_910_12_strokes.png" alt="Dog 12 Strokes">
+                                    </div>
+                                    <div class="column is-narrow grid-item">
+                                        <p class="grid-title">17s</p>
+                                        <img class="grid-image" src="static/figures/dog_910/dog_910_17_strokes.png" alt="Dog 17 Strokes">
+                                    </div>
+                                    <div class="column is-narrow grid-item">
+                                        <p class="grid-title">22s</p>
+                                        <img class="grid-image" src="static/figures/dog_910/dog_910_22_strokes.png" alt="Dog 22 Strokes">
+                                    </div>
+                                    <div class="column is-narrow grid-item">
+                                        <p class="grid-title">27s</p>
+                                        <img class="grid-image" src="static/figures/dog_910/dog_910_27_strokes.png" alt="Dog 27 Strokes">
+                                    </div>
+                                    <div class="column is-narrow grid-item">
+                                        <p class="grid-title">32s</p>
+                                        <img class="grid-image" src="static/figures/dog_910/dog_910_32_strokes.png" alt="Dog 32 Strokes">
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <!-- Row for Car Images -->
+                            <div class="column is-full">
+                                <div class="columns is-centered is-vcentered">
+                                    <div class="column is-narrow grid-item">
+                                        <p class="grid-title">Input</p>
+                                        <img class="grid-image" src="static/figures/car_112/car_112_input.png" alt="Car Input">
+                                    </div>
+                                    <div class="column is-narrow grid-item">
+                                        <p class="grid-title">12s</p>
+                                        <img class="grid-image" src="static/figures/car_112/car_112_12_strokes.png" alt="Car 12 Strokes">
+                                    </div>
+                                    <div class="column is-narrow grid-item">
+                                        <p class="grid-title">17s</p>
+                                        <img class="grid-image" src="static/figures/car_112/car_112_17_strokes.png" alt="Car 17 Strokes">
+                                    </div>
+                                    <div class="column is-narrow grid-item">
+                                        <p class="grid-title">22s</p>
+                                        <img class="grid-image" src="static/figures/car_112/car_112_22_strokes.png" alt="Car 22 Strokes">
+                                    </div>
+                                    <div class="column is-narrow grid-item">
+                                        <p class="grid-title">27s</p>
+                                        <img class="grid-image" src="static/figures/car_112/car_112_27_strokes.png" alt="Car 27 Strokes">
+                                    </div>
+                                    <div class="column is-narrow grid-item">
+                                        <p class="grid-title">32s</p>
+                                        <img class="grid-image" src="static/figures/car_112/car_112_32_strokes.png" alt="Car 32 Strokes">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <!-- Caption -->
+                        <div class="column is-centered has-text-justified">
+                            <p>
+                                Generated sketches are visualized progressively, with the stroke count shown on top. Early strokes capture the
+                                object’s contour and key features, while later strokes add finer details.<br><br>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+
+    
+    
+    
+    <section id="controlsketch-section" class="section hero is-light">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-four-fifths">
+                    <h2 class="title is-3">ControlSketch</h2>
+                    <div class="content has-text-justified">
+                        <div class="column is-centered has-text-justified">
+                            <p>
+                                Given an input image depicting an object, our goal is to generate a corresponding sketch that maintains high 
+                                fidelity to the input while preserving a natural sketch-like appearance. 
+                                Following common practice in the field, We define a sketch as a set of n black strokes where each stroke is a two-dimensional cubic Bézier curve.
+                                We optimize the set of strokes using the standard SDS-based optimization pipeline with two key enhancements:
+                                an improved stroke initialization process and the introduction of spatial control.
+                            </p>
+                        </div>    
+                        <div class="column is-centered has-text-centered">
+                            <img class="large-image" src="static/figures/controlsketch_new.png" alt="controlsketch_pipe" />
+                        </div>
+                        <div class="column is-centered has-text-justified">
+                            <p>
+                                For stroke initialization we use the image attention map extracted using DDIM inversion. 
+                                To emphasize critical areas while ensuring comprehensive object coverage, the object area is divided into k equal-area regions, using a weighted K-Means method that
+                                accounts for both attention weights and pixel locations. We distribute n points based on the attention values of each region while ensuring a minimum allocation per region. The initial strokes are derived from
+                                these points.
+                                At each optimization step, the rasterized sketch is noised based on <i>t</i> and <i>ε</i>, 
+                                then fed into a depth ControlNet text-to-image diffusion model instead of a standard text-to-image diffusion model. 
+                                The model predicts the noise <i>ê</i> conditioned on the image caption and the depth map of the image. 
+                                The predicted noise is used for the SDS loss.
+                                We balance the weighting between the spatial and textual conditions to achieve an optimal trade-off between 
+                                <q>semantic</q> fidelity, derived from the caption (ensuring the sketch is recognizable), 
+                                and <q>geometric</q> fidelity, derived from the depth map, which governs the accuracy of the spatial structure.
+                            </p>
+                        </div>
+                        <!-- <div class="has-text-centered">
+                            <a href="#how-does-it-work-section" class="button is-light is-rounded">Go to Top</a>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="random-sketches-section" class="hero is-small">
+        <div class="container is-max-desktop">
+            <br>
+            <h2 class="title is-3 has-text-centered">Random Sketches Generated with SwiftSketch</h2>
+            <div class="content has-text-justified">
+                <div class="column is-centered has-text-centered">
+                    <div style="display: flex; justify-content: center;">
+                        <img class="large-image" src="static/figures/random_swiftsketch.jpg" alt="random_swiftsketch" />
+                    </div>
+                    <br>  
+                    <br>  
+                    <div class="has-text-centered">
+                        <a href="#" class="button is-light is-rounded">Go to Top</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    
+
+
+    <!-- <section class="section hero is-light">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-four-fifths">
+                    <h2 class="title is-3">Random sketches generated with SwiftSketch</h2>
+                    <div class="content has-text-justified">
+                    <div class="column is-centered has-text-centered">
+                        <img class="large-image" src="static/figures/random_swiftsketch.png" alt="random_swiftsketch" />
+                    </div>
+                </div>
+            </div>
+          </p>
+        </div>
+    </section>  -->
+
+    <section class="section" id="BibTeX">
+        <div class="container is-max-desktop content">
+        <h2 class="title">BibTeX</h2>
+        <pre><code>@inproceedings{10.1145/3721238.3730612,
+        author = {Arar, Ellie and Frenkel, Yarden and Cohen-Or, Daniel and Shamir, Ariel and Vinker, Yael},
+        title = {SwiftSketch: A Diffusion Model for Image-to-Vector Sketch Generation},
+        year = {2025},
+        isbn = {9798400715402},
+        publisher = {Association for Computing Machinery},
+        address = {New York, NY, USA},
+        url = {https://doi.org/10.1145/3721238.3730612},
+        doi = {10.1145/3721238.3730612},
+        booktitle = {Proceedings of the Special Interest Group on Computer Graphics and Interactive Techniques Conference Conference Papers},
+        articleno = {82},
+        numpages = {12},
+        keywords = {Sketch Synthesis, Image-to-Vector Generation, Image-based Rendering, Vector Graphics, Diffusion Models, Stroke-based Representation},
+        series = {SIGGRAPH Conference Papers '25}
+        }</code></pre>
+        </div>
+    </section>
+    
+
+
+
+
+    <footer class="footer">
+        <div class="columns is-centered">
+            <div class="column is-8">
+                <div class="content">
+                    <p>
+                        This website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+                        Commons Attribution-ShareAlike 4.0 International License</a>.
+                    </p>
+                    <p>
+                        Website source code based on the <a href="https://nerfies.github.io/"> Nerfies</a> project page.
+                        If you want to reuse their <a href="https://github.com/nerfies/nerfies.github.io">source code</a>, please credit them appropriately.
+                    </p>
+                </div>
+            </div>
+        </div>
+        </div>
+    </footer>
+
+</body>
+</html>
+

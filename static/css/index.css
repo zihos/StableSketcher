@@ -1,0 +1,375 @@
+body {
+  font-family: 'Noto Sans', sans-serif;
+}
+
+
+.footer .icon-link {
+    font-size: 25px;
+    color: #000;
+}
+
+.link-block a {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.dnerf {
+  font-variant: small-caps;
+}
+
+
+.teaser .hero-body {
+  padding-top: 0;
+  padding-bottom: 3rem;
+}
+
+.teaser {
+  font-family: 'Google Sans', sans-serif;
+}
+
+.teaser-caption {
+  width: 50%;
+  margin: 1rem auto 0;
+}
+
+@media screen and (max-width: 768px) {
+  .teaser-caption {
+    width: 90%;
+  }
+}
+
+
+/*.publication-title {
+}*/
+
+.publication-banner {
+  max-height: parent;
+
+}
+
+.publication-banner video {
+  position: relative;
+  left: auto;
+  top: auto;
+  transform: none;
+  object-fit: fit;
+}
+.large-image {
+  width: 200%;
+  height: auto;
+}
+
+
+.publication-header .hero-body {
+  padding-top: 3rem;
+  padding-bottom: 0rem;
+}
+
+.publication-author-block .hero-body {
+  padding-top: 1rem;
+  padding-bottom: 0rem;
+}
+
+
+.publication-title {
+    /*font-size: 10px;*/
+    font-family: 'Google Sans', sans-serif;
+}
+
+.publication-authors {
+    font-family: 'Google Sans', sans-serif;
+}
+
+.publication-venue {
+    color: #555;
+    width: fit-content;
+    font-weight: bold;
+}
+
+.publication-awards {
+    color: #ff3860;
+    width: fit-content;
+    font-weight: bolder;
+}
+
+/* .sketch-grid-image {
+  max-width: 75px;
+  height: auto;
+  margin: 0; 
+} */
+
+
+
+.grid-title {
+    font-size: 14px;
+    margin-bottom: 5px;
+    text-align: center; /* Center the title */
+}
+.grid-image {
+    max-width: 100px; /* Adjust image size */
+    max-height: 100px;
+    object-fit: contain;
+    margin: 0 auto; /* Center the image */
+    display: block; /* Block-level to align titles */
+}
+.grid-item {
+    text-align: center; /* Ensure items are centered */
+}
+.columns.is-centered {
+    justify-content: center; /* Center the grid */
+}
+
+#galleryGrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 3px; /* Increased space between items */
+  max-width: 100%; /* Prevent overflow */
+  padding-top: 30px; /* Add space above the first row of the grid */
+}
+
+#galleryGrid .column {
+  margin: 0;
+  padding: 0.1px; /* Adjust padding if needed */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-basis: calc(10% - 3px); /* Ensure consistent width for 10 columns */
+  box-sizing: border-box;
+}
+
+
+.grid-image-gallery {
+  max-width: 100px; /* Increased size */
+  max-height: 100px; /* Increased size */
+  object-fit: contain;
+  margin: 0.1px 0; /* Adjust margin if needed */
+}
+
+
+
+.carousel-grid-image {
+  max-width: 100px; /* Increased size */
+  max-height: 100px; /* Increased size */
+  object-fit: contain;
+  margin: 0.1px 0; /* Adjust margin if needed */
+}
+
+#category-carousel {
+  width: 100%; /* Ensures the carousel spans the full width */
+  overflow: hidden; /* Hides any content outside the visible area */
+}
+
+.carousel .carousel-item {
+  width: 100%; /* Each slide should take the full width of the carousel */
+  justify-content: center; /* Centers content within the slide */
+}
+
+#random-sketches-section .large-image {
+  width: 90%; /* Adjust this value as needed */
+  max-width: none; /* Remove any width restrictions */
+  height: auto;
+}
+
+#denoisingGrid .grid-item {
+  max-width: 150px; /* Adjust based on desired size */
+  max-height: 150px;
+  margin: auto;
+  display: block;
+  object-fit: contain; /* Ensures images/videos maintain aspect ratio */
+}
+
+#denoisingGrid video {
+  border: 1px solid #ccc; /* Optional: add a border around videos */
+  border-radius: 8px; /* Optional: add rounded corners */
+}
+
+.dataset-image-small {
+  width: 400px;  /* Adjust size */
+  height: auto;
+  display: block;
+  margin: 10px auto;
+}
+
+.dataset-image-medium {
+  width: 600px;  /* Adjust size */
+  height: auto;
+  display: block;
+  margin: 10px auto;
+}
+
+
+
+
+
+img[src="static/figures/sample_cat.png"] {
+  width: 400px;  /* Slightly smaller width */
+  height: auto;  /* Maintain aspect ratio */
+  display: block;
+  margin: 10px auto;  /* Center the image */
+}
+
+
+.publication-authors {
+}
+
+.publication-authors a {
+   color: hsl(204, 86%, 53%) !important;
+}
+
+.publication-authors a:hover {
+    text-decoration: underline;
+}
+
+.author-block {
+  display: inline-block;
+}
+
+.publication-banner img {
+}
+
+.publication-authors {
+  /*color: #4286f4;*/
+}
+
+.publication-video {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+
+    overflow: hidden;
+    border-radius: 10px !important;
+}
+
+.publication-video iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.publication-body img {
+}
+
+.results-carousel {
+  overflow: hidden;
+  padding-bottom: 10px;
+  padding-top: 5px;
+}
+
+.results-carousel .item {
+  margin: 5px;
+  overflow: hidden;
+  border: 1px solid #bbb;
+  border-radius: 0;
+  padding: 0;
+  font-size: 0;
+  position: static;
+  width: auto;
+  height: auto;
+}
+
+.results-carousel video {
+  margin: 0;
+}
+
+.results-carousel img {
+  margin: 0;
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 0;
+}
+
+.quantitative-table-wrapper {
+  margin-top: 1.5rem;
+}
+
+.quantitative-table {
+  font-size: 0.95rem;
+}
+
+.quantitative-table th,
+.quantitative-table td {
+  vertical-align: middle;
+}
+
+.quantitative-table th {
+  text-align: center;
+}
+
+.quantitative-table td:first-child,
+.quantitative-table th:first-child {
+  text-align: left;
+}
+
+.metric-std {
+  font-size: 0.72em;
+  vertical-align: super;
+}
+
+.quantitative-table .section-divider td {
+  border-top: 2px solid #dbdbdb;
+}
+
+.slider-pagination .slider-page {
+  background: #000000;
+}
+
+.eql-cntrb { 
+  font-size: smaller;
+}
+
+@counter-style emoji-bullets {
+  system: cyclic;
+  symbols: "\1F58C""\23F0""\1F308";
+  suffix: " ";
+} 
+
+/* ul li {
+  list-style-type: emoji-bullets;
+  font-size: 18px; 
+} */
+
+/* Apply emoji bullets only to the first list */
+ul.emoji-list li {
+  list-style-type: emoji-bullets;
+}
+
+/* Regular bullets for other lists */
+ul.regular-list li {
+  list-style-type: disc;
+}
+
+.button.is-light.is-rounded {
+  font-size: 16px;
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  background: white;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease-in-out;
+}
+
+.button.is-light.is-rounded:hover {
+  transform: scale(1.1);
+  box-shadow: 0px 7px 15px rgba(0, 0, 0, 0.3);
+}
+
+.button.is-light.is-rounded:active {
+  transform: scale(0.95);
+  box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.2);
+}
+
+
+.publication-venue {
+  width: 100%;           
+  font-size: 2.5rem;      
+  font-weight: 400;       
+  color: #4a4a4a;       
+  margin-top: 1rem;       
+}
+
+
